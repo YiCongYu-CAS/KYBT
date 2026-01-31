@@ -1,0 +1,15 @@
+# LaTeX 中间文件
+*.aux
+*.log
+*.synctex.gz
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+
+# 生成的 PDF
+*.pdf
+
+# 临时目录
+temp/
+output/
