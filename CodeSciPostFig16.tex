@@ -1,0 +1,131 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{graphicx} % 必须加载
+
+\usepackage{newtxtext,newtxmath} % 推荐LaTeX数学字体方案
+\tikzset{every node/.style={font=\rmfamily}} % 所有节点都用罗马体
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing,decorations.markings}
+\usetikzlibrary{patterns} % 加载 patterns 库
+\usepackage{comment}
+
+\usetikzlibrary{calc}
+
+
+\colorlet{myred}{red!80!black}
+\colorlet{myblue}{blue!80!black}
+\colorlet{mygreen}{green!60!black}
+\colorlet{myorange}{orange!70!red!60!black}
+\colorlet{mydarkred}{red!30!black}
+\colorlet{mydarkblue}{blue!40!black}
+\colorlet{mydarkgreen}{green!30!black}
+\colorlet{myred2}{red!50!white}
+
+\colorlet{mylightblue}{blue!60!cyan!80!black!15}
+\colorlet{mypurple}{blue!50!red!70}
+\colorlet{gaugecol}{red!90!black!70} % Wiki red
+\colorlet{leptoncol}{green!80!black!70} % Wiki green
+\colorlet{quarkcol}{blue!85!cyan!95!black!55} % Wiki purple
+\colorlet{quarkred}{red!98!black!55} % quark red
+\colorlet{quarkblue}{blue!85!cyan!98!black!55} % quark blue
+\colorlet{quarkgreen}{green!95!black!55} % quark green
+\colorlet{gluoncyan}{cyan!100!black!55} % gluon cyan
+\colorlet{gluongreen}{green!75!blue!95!black!70} % gluon green
+\colorlet{gluonyellow}{yellow!98!black!55} % gluon yellow
+\colorlet{gluonorange}{orange!100!black!65} % gluon orange
+\colorlet{gluonmagenta}{magenta!100!black!70} % gluon magenta
+\colorlet{scalarcol}{yellow!70!orange!98!black}
+\colorlet{tensorcol}{blue!50!red!70} % Wiki light blue
+\colorlet{groupcol}{orange!15}
+
+
+
+
+
+\def\xs{2.5}
+\def\ys{0.6}
+\def\p{0.4}
+\def\q{0.7}
+\def\Height{2.8}
+\def\Width{2.5}
+\def\BW{3.3}
+\def\De{-0.2}
+\def\x{-0.74}
+\def\y{1.83}
+\def\xz{-2.86}
+\def\yz{-1.83}
+\def\De{0.1}
+
+\begin{document}
+\begin{tikzpicture}
+  % 在 (0,0) 处插入图片，宽度设为3cm
+  \node at (-1.8,0) {\includegraphics[width=5cm]{FigGrid.png}};
+  %\node at (4,0) {\includegraphics[width=4cm]{FigSchematicFEM02.png}};
+
+
+   \fill[pattern=north east lines, even odd rule]
+        (\xz-\De,\yz-\De) rectangle (\x+\De,\y+\De)   % 外矩形
+        (\xz,\yz) rectangle (\x,\y);  % 内矩形（挖空部分）
+        
+    % 可选：绘制辅助边框
+    %\draw[thick] (0,0) rectangle (6,6);   % 外矩形边框
+    \draw[thick] (\xz,\yz) rectangle (\x,\y);   % 内矩形边框
+
+\coordinate (P1) at (\xz, \yz);
+\coordinate (P3) at (\x, \y);
+
+\begin{scope}
+\clip (\xz,\yz) rectangle (\x, \y);
+\draw[gray!60, line width=4.0, opacity=0.4] (P3) -- (P1);
+\end{scope}
+
+\coordinate (PS) at (1, -0.2);
+
+\coordinate (P1) at ($(1.4, 1.7) + (PS)$);
+\coordinate (P2) at ($(0.5,0) + (PS)$);
+\coordinate (P3) at ($(2,0) + (PS)$);
+\coordinate (P4) at ($(1.2,-1.4) + (PS)$);
+\coordinate (P5) at ($(2.8,-1.6) + (PS)$);
+\coordinate (P6) at ($(3.4,0) + (PS)$);
+\coordinate (P7) at ($(2.7,1.9) + (PS)$);
+\coordinate (PL) at ($(4.4,1.9) + (PS)$);
+
+\coordinate (Q0) at ($(0,0) + (PS)$);
+\coordinate (Q1) at ($(4,0) + (PS)$);
+
+
+\draw[gray!60, line width=3.8, opacity=0.8] (Q0) -- (Q1);
+
+\draw (P1) -- (P2) -- (P4) -- (P5) -- (P6) -- (P7) -- cycle;
+
+\draw (P3) -- (P1);
+%\draw (P3) -- (P2);
+\draw (P3) -- (P4);
+\draw (P3) -- (P5);
+%\draw (P3) -- (P6);
+\draw (P3) -- (P7);
+
+\fill (P1) circle (1pt);
+\fill (P2) circle (1pt);
+\fill (P3) circle (1pt);
+\fill (P4) circle (1pt);
+\fill (P5) circle (1pt);
+\fill (P6) circle (1pt);
+\fill (P7) circle (1pt);
+
+\node[above] at (P1) {$P_1$};
+\node[above, xshift = -4] at (P2) {$P_2$};
+\node[xshift = -8, yshift = 6] at (P3) {$P_3$};
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\fill (PL) circle (1pt);
+\node at (PL) {};
+ 
+\node at (-3.2, 2.2) {$(a)$};
+\node at (0.7, 2.2) {$(b)$};
+  
+\end{tikzpicture}
+\end{document}

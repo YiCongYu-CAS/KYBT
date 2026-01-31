@@ -1,0 +1,114 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{graphicx} % 必须加载
+
+\usepackage{newtxtext,newtxmath} % 推荐LaTeX数学字体方案
+\tikzset{every node/.style={font=\rmfamily}} % 所有节点都用罗马体
+
+\usetikzlibrary{calc}
+
+
+\colorlet{myred}{red!80!black}
+\colorlet{myblue}{blue!80!black}
+\colorlet{mygreen}{green!60!black}
+\colorlet{myorange}{orange!70!red!60!black}
+\colorlet{mydarkred}{red!30!black}
+\colorlet{mydarkblue}{blue!40!black}
+\colorlet{mydarkgreen}{green!30!black}
+\colorlet{myred2}{red!50!white}
+
+\colorlet{mylightblue}{blue!60!cyan!80!black!15}
+\colorlet{mypurple}{blue!50!red!70}
+\colorlet{gaugecol}{red!90!black!70} % Wiki red
+\colorlet{leptoncol}{green!80!black!70} % Wiki green
+\colorlet{quarkcol}{blue!85!cyan!95!black!55} % Wiki purple
+\colorlet{quarkred}{red!98!black!55} % quark red
+\colorlet{quarkblue}{blue!85!cyan!98!black!55} % quark blue
+\colorlet{quarkgreen}{green!95!black!55} % quark green
+\colorlet{gluoncyan}{cyan!100!black!55} % gluon cyan
+\colorlet{gluongreen}{green!75!blue!95!black!70} % gluon green
+\colorlet{gluonyellow}{yellow!98!black!55} % gluon yellow
+\colorlet{gluonorange}{orange!100!black!65} % gluon orange
+\colorlet{gluonmagenta}{magenta!100!black!70} % gluon magenta
+\colorlet{scalarcol}{yellow!70!orange!98!black}
+\colorlet{tensorcol}{blue!50!red!70} % Wiki light blue
+\colorlet{groupcol}{orange!15}
+
+
+
+
+
+\def\xs{2.5}
+\def\ys{0.6}
+\def\p{0.4}
+\def\q{0.7}
+\def\Height{2.8}
+\def\Width{2.5}
+\def\BW{3.3}
+\def\De{-0.2}
+
+\begin{document}
+\begin{tikzpicture}
+  % 在 (0,0) 处插入图片，宽度设为3cm
+  \node at (0,0) {\includegraphics[width=6.5cm]{FigSchematicFEM02.png}};
+  %\node at (4,0) {\includegraphics[width=4cm]{FigSchematicFEM02.png}};
+
+ \coordinate (PS) at (3.8, -1.3);
+
+ \coordinate (P1) at ($(0, 0) + (PS)$);
+ \coordinate (P2) at ($(\Width, 0) + (PS)$);
+ \coordinate (P3) at ($(\Width * 0 .688, \Height) + (PS)$);
+
+ \coordinate (Pd1) at ($(P1) + (0, \De)$);
+ \coordinate (Pd2) at ($(P2) + (0, \De)$);
+
+ \coordinate (B) at (\BW, 0);
+ \coordinate (C) at (\BW, \Height);
+
+ \coordinate (A) at ($(P1)!\p!(P2)$);
+ \coordinate (B) at ($(\BW, 0) + (PS)$);
+ \coordinate (C) at ($(\BW, \Height) + (PS)$);
+
+\coordinate (E) at ($(P3)!\q!(P1)$);
+\coordinate (F) at ($(P3)!\q!(P2)$);
+\coordinate (X) at ($(E)!\p!(F)$);
+\coordinate (G) at ($(C)!\q!(B)$);
+
+\coordinate (Ad) at ($(A) + (0, \De)$);
+
+
+
+
+
+\draw (P1) to (P2) to (P3) to (P1);
+\draw[dashed, myred] (P3) to (A);
+\draw[dashed, myred] (P3) to (C);
+\draw[dashed, myred] (P2) to (B);
+\draw[dashed, myred] (E) to (F) to (G);
+
+\node[left] at (P1) {$P_1$};
+\node[above right, xshift = -3, yshift = -3] at (P2) {$P_2$};
+\node[above] at (P3) {$P_3$};
+\node[below right] at (X) {$x$};
+
+\draw[|<->|] (Pd1) -- (Ad) node[midway, below] {\small $qa$};
+ \draw[<->|] (Ad) -- (Pd2) node[midway, below] {\scriptsize $(1-q)a$};
+
+ \draw[|<->|] (C) -- (G) node[midway, right] {\small $ph$};
+ \draw[<->|] (G) -- (B) node[midway, right] {\footnotesize $(1-p)h$};
+
+
+ \fill (P1) circle (1pt);
+\fill (P2) circle (1pt);
+\fill (P3) circle (1pt);
+\fill (A) circle (1pt);
+\fill (E) circle (1pt);
+\fill (F) circle (1pt);
+
+\draw[fill=myred] (X) circle (1pt);
+
+\node at (-3.2, 2.13) {$(a)$};
+\node at (3.2, 2.13) {$(b)$};
+  
+\end{tikzpicture}
+\end{document}
